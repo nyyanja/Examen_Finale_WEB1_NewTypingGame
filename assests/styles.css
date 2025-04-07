@@ -1,0 +1,11 @@
+*{
+    margin :0;
+    padding: 0;
+    font-family: 'Roboto Mono', monospace;
+}
+:root {
+    --primary-color: #323232;     /* noir*/
+    --secondary-color: #D732A8;   /* rose claire*/
+    --accent-color: #FA4EAB;      /* rose */
+    --background-color: #FFF2F9;  /* Gris clair */
+  }
