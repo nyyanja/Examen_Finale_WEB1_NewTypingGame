@@ -21,7 +21,7 @@
         
         <nav>
             <a href="#home">HOME</a>
-            <a href="aboutUs">ABOUT US</a>
+            <a href="#about-us">ABOUT US</a>
         </nav>
         
         <a href="#" class="sign-in">SIGN IN</a>
@@ -63,6 +63,90 @@
             </div>
         </div>
     </div>
+
+    <section id="about-us"></section>
+        <div class="about-content">
+            <div class="about-info">
+                <h1 class="neon-title">NEONTYPER</h1>
+                <p class="description">
+                    Discover the ultimate typing experience with NeonTyper, where speed meets style in a vibrant neon atmosphere. Our platform is designed to enhance your typing skills while providing an engaging and visually stunning environment.
+                </p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="words-count">0</span>
+                        <span class="stat-label">WORDS</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="fun-percent">0</span>
+                        <span class="stat-label">FUN</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="levels-section">
+                <h2 class="level-title">LEVEL</h2>
+                
+                <div class="level">
+                    <h3 class="level-name">EASY</h3>
+                    <p class="level-description">
+                        Perfect for beginners. Practice with common words and simple sentences to build your foundation in typing.
+                    </p>
+                </div>
+                
+                <div class="level">
+                    <h3 class="level-name">MEDIUM</h3>
+                    <p class="level-description">
+                        Challenge yourself with more complex vocabulary and longer sentences. Ideal for those looking to improve their speed and accuracy.
+                    </p>
+                </div>
+                
+                <div class="level">
+                    <h3 class="level-name">HARD</h3>
+                    <p class="level-description">
+                        For experienced typists seeking a real challenge. Master complex passages, technical terminology, and achieve professional typing speeds.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Animation d'incrémentation pour les statistiques
+        function animateNumbers() {
+            // Pour le compteur de mots (+250)
+            const wordsTarget = 250;
+            const wordsElement = document.getElementById('words-count');
+            let wordsCount = 0;
+            
+            // Pour le pourcentage de plaisir (100%)
+            const funTarget = 100;
+            const funElement = document.getElementById('fun-percent');
+            let funCount = 0;
+            
+            const interval = setInterval(() => {
+                if (wordsCount < wordsTarget) {
+                    wordsCount += 5;
+                    if (wordsCount > wordsTarget) wordsCount = wordsTarget;
+                    wordsElement.textContent = "+" + wordsCount;
+                }
+                
+                if (funCount < funTarget) {
+                    funCount += 2;
+                    if (funCount > funTarget) funCount = funTarget;
+                    funElement.textContent = funCount + "%";
+                }
+                
+                if (wordsCount >= wordsTarget && funCount >= funTarget) {
+                    clearInterval(interval);
+                }
+            }, 30);
+        }
+        
+        // Démarrer l'animation au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            animateNumbers();
+        });
+    </script>
 
 </body>
 </html>
