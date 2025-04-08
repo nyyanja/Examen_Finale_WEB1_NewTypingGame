@@ -5,6 +5,25 @@
     font-family: 'Roboto monospace', monospace;
 }
 
+html {
+    scroll-behavior: smooth;
+  }
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+        background-color: #333333;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: #ff00d4;
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #ff00d4;
+    }
+    ::-webkit-scrollbar-track {
+        background-color: #333333;
+    }
+    
 body {
     background-color: #333333;
     color: white;
@@ -78,7 +97,7 @@ header {
     padding: 15px;
     flex-wrap: wrap;
     gap: 20px;
-    background-color: rgba(30, 30, 30, 0.95);
+    background-color: rgba(47, 46, 46, 0.95);
     position: fixed;
     top: 0;
     left: 0;
@@ -195,3 +214,235 @@ nav a:hover::after {
     left: 100%;
 }
 
+/*style de main-wrapper*/
+.main-wrapper {
+    padding-top: 120px;
+}
+
+/* Contenu principal*/
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    flex-wrap: wrap;
+    gap: 400px;
+}
+
+.left-content {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.welcome-title {
+    font-size: 52px;
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeInUp 1s forwards;
+    animation-delay: 0.5s;
+}
+
+.neon-brand {
+    color: #ff00d4;
+    font-size: 52px;
+    text-shadow: 0 0 5px #ff00d4;
+    animation: neonText 2s infinite alternate;
+}
+
+.description {
+    color: #cccccc;
+    line-height: 1.6;
+    margin-top: 25px;
+    font-family: monospace;
+    font-size: 23px;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+    animation-delay: 1s;
+}
+
+/* Icônes sociales */
+.social-icons {
+    display: flex;
+    gap: 30px;
+    margin-top: 25px;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+    animation-delay: 1.5s;
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #ff00d4;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ff00d4;
+    font-size: 24px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.social-icon:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px #ff00d4;
+    background-color: rgba(255, 0, 212, 0.2);
+}
+
+.social-icon i {
+    transition: all 0.3s;
+}
+
+.social-icon:hover i {
+    transform: scale(1.2);
+}
+/* Grille de lettres */
+.letter-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 80px);
+    grid-template-rows: repeat(5, 80px);
+    gap: 30px;
+    position: relative;
+}
+
+.letter-box {
+    border: 2px solid #ff00d4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    font-weight: bold;
+    box-shadow: 0 0 5px #ff00d4;
+    transition: all 0.5s;
+    opacity: 0;
+    animation: fadeInBox 0.5s forwards;
+}
+
+.letter-box:hover {
+    background-color: rgba(255, 0, 212, 0.3);
+    box-shadow: 0 0 15px #ff00d4;
+    transform: translateY(-5px) scale(1.05);
+}
+
+/* Formation N */
+.letter-n1 { grid-column: 1; grid-row: 1/6; animation-delay: 0.1s; }
+.letter-n2 { grid-column: 2; grid-row: 2; animation-delay: 0.2s; }
+.letter-n3 { grid-column: 2; grid-row: 3; animation-delay: 0.3s; }
+.letter-n4 { grid-column: 2; grid-row: 4; animation-delay: 0.4s; }
+.letter-n5 { grid-column: 3; grid-row: 1/6; animation-delay: 0.5s; }
+
+/* Media Queries pour la responsivité */
+@media (max-width: 1024px) {
+    .main-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 90px;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+
+    .level-grid {
+        grid-template-columns: repeat(5, 50px);
+        grid-template-rows: repeat(5, 50px);
+    }
+    
+    .level-box {
+        font-size: 24px;
+    }
+    
+    .welcome-title, .neon-brand {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        justify-content: center;
+    }
+    
+    .main-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 100px;
+    }
+    
+    .left-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 20px;
+    }
+    
+    .description {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 10px;
+    }
+    
+    .logo-container {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .logo-img::after {
+        bottom: 20px;
+    }
+    
+    nav {
+        gap: 15px;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .sign-in {
+        padding: 8px 18px;
+        font-size: 14px;
+    }
+    
+    .main-wrapper {
+        padding-top: 140px;
+    }
+    .main-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 100px;
+    }
+    
+    .letter-grid {
+        grid-template-columns: repeat(3, 50px);
+        grid-template-rows: repeat(5, 50px);
+        gap: 5px;
+    }
+    
+    .letter-box {
+        font-size: 24px;
+    }
+    
+    .welcome-title, .neon-brand {
+        font-size: 30px;
+    }
+    
+    .welcome-title, .neon-brand {
+        font-size: 30px;
+    }
+}
