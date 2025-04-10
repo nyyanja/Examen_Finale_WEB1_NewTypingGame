@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="assests/styles.css">
     <link rel="icon" href="assests/images/logo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script src="/assests/home.js" defer></script>
+
 
 
 </head>
@@ -24,7 +26,7 @@
             <a href="#about-us">ABOUT US</a>
         </nav>
         
-        <a href="#" class="sign-in">SIGN IN</a>
+        <a href="assests/game.html" class="sign-in">SIGN IN</a>
     </header>
 
     <div class="main-wrapper" id="home">
@@ -109,44 +111,10 @@
             </div>
         </div>
     </section>
-
-    <script>
-        // Animation d'incrémentation pour les statistiques
-        function animateNumbers() {
-            // Pour le compteur de mots (+250)
-            const wordsTarget = 250;
-            const wordsElement = document.getElementById('words-count');
-            let wordsCount = 0;
-            
-            // Pour le pourcentage de plaisir (100%)
-            const funTarget = 100;
-            const funElement = document.getElementById('fun-percent');
-            let funCount = 0;
-            
-            const interval = setInterval(() => {
-                if (wordsCount < wordsTarget) {
-                    wordsCount += 5;
-                    if (wordsCount > wordsTarget) wordsCount = wordsTarget;
-                    wordsElement.textContent = "+" + wordsCount;
-                }
-                
-                if (funCount < funTarget) {
-                    funCount += 2;
-                    if (funCount > funTarget) funCount = funTarget;
-                    funElement.textContent = funCount + "%";
-                }
-                
-                if (wordsCount >= wordsTarget && funCount >= funTarget) {
-                    clearInterval(interval);
-                }
-            }, 30);
-        }
-        
-        // Démarrer l'animation au chargement de la page
-        document.addEventListener('DOMContentLoaded', function() {
-            animateNumbers();
-        });
-    </script>
-
+    <button id="theme-toggle" class="theme-toggle">
+        <i class="fas fa-moon" id="dark-icon"></i>
+        <i class="fas fa-sun" id="light-icon" style="display: none;"></i>
+    </button>
+   
 </body>
 </html>
