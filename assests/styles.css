@@ -191,7 +191,7 @@ nav a:hover::after {
     width: 100%;
 }
 
-.sign-in {
+/* .sign-in {
     border: 2px solid #ff00d4;
     padding: 10px 25px;
     margin-right: 30px;
@@ -226,7 +226,7 @@ nav a:hover::after {
 
 .sign-in:hover::before {
     left: 100%;
-}
+} */
 
 /* style de main-wrapper */
 .main-wrapper {
@@ -636,3 +636,5 @@ nav a:hover::after {
         font-size: 30px;
     }
 }
+
+

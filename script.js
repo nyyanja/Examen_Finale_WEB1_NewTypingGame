@@ -5,6 +5,9 @@
  * 
  * Sur ce... Amusez-vous bien ! 
  */
+
+
+
 let startTime = null, previousEndTime = null;
 let currentWordIndex = 0;
 const wordsToType = [];
