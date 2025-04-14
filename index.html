@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="assests/styles.css">
     <link rel="icon" href="assests/images/logo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
-    <script src="/assests/home.js" defer></script>
+    <script src="assests/home.js" defer></script>
 
 
 
@@ -25,8 +25,8 @@
             <a href="#home">HOME</a>
             <a href="#about-us">ABOUT US</a>
         </nav>
-        
-        <a href="assests/game.html" class="sign-in">SIGN IN</a>
+        <!--Nouveau style du bouton-->
+        <button class="sign-in-btn" id="signInButton">SIGN IN</button>
     </header>
 
     <div class="main-wrapper" id="home">
@@ -66,6 +66,7 @@
         </div>
     </div>
 
+    <!--Déplacement du javascript dans home.js-->
     <section id="about-us"></section>
         <div class="about-content">
             <div class="about-info">
@@ -111,10 +112,26 @@
             </div>
         </div>
     </section>
+
+    <!--ajout login-->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="login-container">
+            <button class="close-btn" id="closeBtn">✕</button>
+            <h2 class="login-title">LOG <span>IN</span></h2>
+            <p class="login-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur</p>
+            <form id="loginForm">
+                <input type="email" class="input-field" placeholder="Email...">
+                <input type="password" class="input-field" placeholder="Password...">
+                <button type="submit" class="login-btn">SIGN IN</button>
+            </form>
+        </div>
+    </div>
+    <!--fin login-->
+
     <button id="theme-toggle" class="theme-toggle">
         <i class="fas fa-moon" id="dark-icon"></i>
         <i class="fas fa-sun" id="light-icon" style="display: none;"></i>
     </button>
-   
+
 </body>
 </html>
