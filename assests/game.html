@@ -8,14 +8,21 @@
     <link rel="stylesheet" href="/assests/game.html">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="/assests/game.css">
+    <script src="/assests/home.js" defer></script>
     <title>Typing Test</title>
 </head>
 
 <body>
-    <button id="theme-toggle" class="theme-toggle">
-        <i class="fas fa-sun"></i>
+
+    <button id="logout-btn" class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i> Déconnexion
     </button>
 
+    <button id="theme-toggle" class="theme-toggle">
+        <i class="fas fa-moon" id="dark-icon"></i>
+        <i class="fas fa-sun" id="light-icon" style="display: none;"></i>
+    </button>
+    
     <div class="container">
         <h1 class="title">NEON<span>TYPER</span></h1>
 
@@ -69,6 +76,19 @@
             <button id="quit-btn" class="btn">Quit</button>
         </div>
     </div>
+
+      <!-- Logout Confirmation Modal -->
+      <div id="logout-modal" class="modal">
+        <div class="modal-content">
+            <h2 class="modal-title">Déconnexion</h2>
+            <p>Êtes-vous sûr de vouloir vous déconnecter ?</p>
+            <div>
+                <button id="confirm-logout-btn" class="btn">Confirmer</button>
+                <button id="cancel-logout-btn" class="btn">Annuler</button>
+            </div>
+        </div>
+    </div>
+
     <script src="/assests/script.js"></script>
 </body>
 

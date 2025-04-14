@@ -269,22 +269,7 @@ const quitGame = () => {
     showStartModal();
 };
 
-// Theme toggle functionality
-const toggleTheme = () => {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    html.setAttribute('data-theme', newTheme);
-    
-    // Update icon
-    const icon = themeToggle.querySelector('i');
-    if (newTheme === 'dark') {
-        icon.className = 'fas fa-sun';
-    } else {
-        icon.className = 'fas fa-moon';
-    }
-};
+
 
 // Event listeners
 inputField.addEventListener("keydown", (event) => {
@@ -329,3 +314,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Show modal on load
 showStartModal();
+
+// Script pour la fonctionnalité de déconnexion
+document.addEventListener('DOMContentLoaded', () => {
+    const logoutBtn = document.getElementById('logout-btn');
+    const logoutModal = document.getElementById('logout-modal');
+    const confirmLogoutBtn = document.getElementById('confirm-logout-btn');
+    const cancelLogoutBtn = document.getElementById('cancel-logout-btn');
+    
+    // Afficher la modal de confirmation de déconnexion
+    logoutBtn.addEventListener('click', () => {
+        isGameActive = false;
+        inputField.disabled = true;
+        
+        logoutModal.style.display = 'flex';
+    });
+    
+    // Annuler la déconnexion
+    cancelLogoutBtn.addEventListener('click', () => {
+        logoutModal.style.display = 'none';
+        
+        // Si on était sur l'écran de jeu (pas sur un modal), réactiver le jeu
+        if (startModal.style.display !== 'flex' && endModal.style.display !== 'flex') {
+            isGameActive = true;
+            inputField.disabled = false;
+            inputField.focus();
+        }
+    });
+    
+    // Confirmer la déconnexion
+    confirmLogoutBtn.addEventListener('click', () => {
+        window.location.href = '/index.html';
+    });
+});
