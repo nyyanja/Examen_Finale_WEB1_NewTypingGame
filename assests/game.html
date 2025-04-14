@@ -7,27 +7,69 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assests/game.html">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/assests/game.css">
     <title>Typing Test</title>
 </head>
 
 <body>
-    <header>
-        <h1>Typing Test</h1>
-        <label for="mode">Select Mode:</label>
-        <select id="mode">
+    <button id="theme-toggle" class="theme-toggle">
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <div class="container">
+        <h1 class="title">NEON<span>TYPER</span></h1>
+
+        <div class="difficulty-container">
+            <button class="difficulty-btn active" data-difficulty="easy">EASY</button>
+            <button class="difficulty-btn" data-difficulty="medium">MEDIUM</button>
+            <button class="difficulty-btn" data-difficulty="hard">HARD</button>
+        </div>
+
+        <div class="word-display-container">
+            <div id="word-display"></div>
+        </div>
+
+        <input type="text" id="input-field" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type here...">
+
+        <div class="stats-container">
+            <div id="wpm" class="stat">WPM:...</div>
+            <div id="accuracy" class="stat">ACCURACY:...</div>
+        </div>
+
+        <div id="results"></div>
+
+        <select id="mode" style="display: none;">
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
         </select>
-    </header>
+    </div>
 
-    <main>
-        <p id="word-display"></p>
-        <input type="text" id="input-field" autofocus>
-        <p id="results">Results : </p>
-    </main>
+    <!-- Start Modal -->
+    <div id="start-modal" class="modal">
+        <div class="modal-content">
+            <h2 class="modal-title">Welcome to NeonTyper</h2>
+            <p>Test your typing speed with our easy-to-use game.</p>
+            <p>Choose a difficulty level and start typing the words that appear.</p>
+            <button id="start-game-btn" class="btn">Start Game</button>
+        </div>
+    </div>
 
-    <script src="script.js"></script>
+    <!-- End Modal -->
+    <div id="end-modal" class="modal">
+        <div class="modal-content">
+            <h2 class="modal-title">Results</h2>
+            <div id="end-message"></div>
+            <div class="end-stats">
+                <p id="final-wpm">WPM: 0</p>
+                <p id="final-accuracy">Accuracy: 0%</p>
+            </div>
+            <button id="continue-btn" class="btn">Continue</button>
+            <button id="restart-btn" class="btn">Restart</button>
+            <button id="quit-btn" class="btn">Quit</button>
+        </div>
+    </div>
+    <script src="/assests/script.js"></script>
 </body>
 
 </html>
