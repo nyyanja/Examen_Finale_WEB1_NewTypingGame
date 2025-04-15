@@ -54,14 +54,17 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="letter-grid">
-                    <div class="letter-box letter-n1">N</div>
-                    <div class="letter-box letter-n2">N</div>
-                    <div class="letter-box letter-n3">N</div>
-                    <div class="letter-box letter-n4">N</div>
-                    <div class="letter-box letter-n5">N</div>
-                </div>
+
+                <!--effacement de N et ajout du keyboard-->
+                <div class="keyboard-area">
+                    <div class="keyboard" id="keyboard">
+                      <div class="row" id="row1"></div>
+                      <div class="row" id="row2"></div>
+                      <div class="row" id="row3"></div>
+                      <div class="row" id="row4"></div>
+                    </div>
+                  </div>
+                <!--fin du modification sur keyboard-->  
             </div>
         </div>
     </div>
@@ -120,8 +123,8 @@
             <h2 class="login-title">LOG <span>IN</span></h2>
             <p class="login-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur</p>
             <form id="loginForm">
-                <input type="email" class="input-field" placeholder="Email...">
-                <input type="password" class="input-field" placeholder="Password...">
+                <input type="email" class="input-field" placeholder="Email..." required>
+                <input type="password" class="input-field" placeholder="Password..." required>
                 <button type="submit" class="login-btn">SIGN IN</button>
             </form>
         </div>

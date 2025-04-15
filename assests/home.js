@@ -15,29 +15,104 @@ document.addEventListener("DOMContentLoaded", function () {
   // Afficher le modal quand on clique sur SIGN IN
   signInButton.addEventListener("click", function () {
     modalOverlay.style.display = "flex";
-    mainContent.classList.add("blur");
+    mainContent.classList.add("blur"); // Ajoute l'effet de flou
   });
 
   // Fermer le modal quand on clique sur X
   closeBtn.addEventListener("click", function () {
     modalOverlay.style.display = "none";
-    mainContent.classList.remove("blur");
+    mainContent.classList.remove("blur"); // Retire l'effet de flou
   });
 
   // Fermer le modal quand on clique en dehors du formulaire
   modalOverlay.addEventListener("click", function (event) {
     if (event.target === modalOverlay) {
       modalOverlay.style.display = "none";
-      mainContent.classList.remove("blur");
+      mainContent.classList.remove("blur"); // Retire l'effet de flou
     }
   });
 
   // Empêcher le formulaire de rafraîchir la page à la soumission
   loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
+    // Ici vous pourriez ajouter la logique d'authentification
     console.log("Formulaire soumis");
   });
+  //remplissage du formulaire
+  document.getElementById("loginForm").addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let errorMessage = document.getElementById("errorMessage");
+    let button = document.getElementById("login-button");
+
+    let userMail = "NeonTyper@gmail.com";
+    let userPassword = "123456";
+
+    if (email == userMail && password == userPassword) {
+      let dots = "";
+      let count = 0;
+
+      button.disabled = true;
+      let loadingDot = setInterval(() => {
+        count = (count + 1) % 4;
+        dots = ".".repeat(count);
+        button.innerText = dots;
+      }, 500);
+
+      setTimeout(() => {
+        clearInterval(loadingDot);
+        window.location.href = "game.html";
+      }, 4000);
+    }
+  });
   //fin du login de miora
+
+  //ajout clavier
+  const rows = {
+    row1: "QWERTYUIOP",
+    row2: "ASDFGHJKL",
+    row3: "ZXCVBNM",
+    row4: " ",
+  };
+
+  const keyboardLayout = {};
+
+  for (let row in rows) {
+    const container = document.getElementById(row);
+    for (let char of rows[row]) {
+      const key = document.createElement("div");
+      key.className = "key";
+      key.textContent = char === " " ? "⎵" : char;
+      container.appendChild(key);
+      keyboardLayout[char] = key;
+    }
+  }
+
+  const text = `WELCOME TO NEONTYPER TEST YOUR SPEED, CHALLENGE YOUR FRIENDS, AND TYPE LIKE A PRO — WELCOME TO NEONTYPER, WHERE TYPING BECOMES A THRILLING RACE!`;
+
+  let i = 0;
+
+  function simulateTyping() {
+    if (i < text.length) {
+      const char = text[i].toUpperCase();
+      if (keyboardLayout[char]) {
+        const key = keyboardLayout[char];
+        key.classList.add("active");
+        setTimeout(() => key.classList.remove("active"), 300);
+      }
+      i++;
+      setTimeout(simulateTyping, 100);
+    } else {
+      setTimeout(() => {
+        i = 0;
+        simulateTyping();
+      }, 1500);
+    }
+  }
+  simulateTyping();
+  //fin ajout clavier miora
 
   // Function to update the icon
   function updateIcon(theme) {
