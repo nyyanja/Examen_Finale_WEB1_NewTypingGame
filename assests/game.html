@@ -58,15 +58,38 @@
     <!-- End Modal -->
     <div id="end-modal" class="modal">
         <div class="modal-content">
-            <h2 class="modal-title">Results</h2>
-            <div id="end-message"></div>
-            <div class="end-stats">
-                <p id="final-wpm">WPM: 0</p>
-                <p id="final-accuracy">Accuracy: 0%</p>
+            <h2 id="end-message"></h2>
+            <div class="result-stats">
+                <div class="stat-item" id="final-wpm"></div>
+                <div class="stat-item" id="final-accuracy"></div>
+                <div class="stat-item" id="final-score"></div>
             </div>
-            <button id="continue-btn" class="btn">Continue</button>
-            <button id="restart-btn" class="btn">Restart</button>
-            <button id="quit-btn" class="btn">Quit</button>
+            
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span>Progress</span>
+                    <span id="final-progress"></span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span>Score</span>
+                    <span id="score-percentage"></span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="score-fill"></div>
+                </div>
+            </div>
+            
+            <div class="modal-buttons">
+                <button id="continue-btn">Continue</button>
+                <button id="restart-btn">Restart</button>
+                <button id="quit-btn">Quit</button>
+            </div>
         </div>
     </div>
     <script src="/assests/script.js"></script>

@@ -1,10 +1,10 @@
 /**
-         * Point culture (en Français car je suis un peu obligé): 
-         * Dans ce genre de jeu, un mot équivaut à 5 caractères, y compris les espaces. 
-         * La précision, c'est le pourcentage de caractères tapés correctement sur tous les caractères tapés.
-         * 
-         * Sur ce... Amusez-vous bien !
-         */
+ * Point culture (en Français car je suis un peu obligé): 
+ * Dans ce genre de jeu, un mot équivaut à 5 caractères, y compris les espaces. 
+ * La précision, c'est le pourcentage de caractères tapés correctement sur tous les caractères tapés.
+ * 
+ * Sur ce... Amusez-vous bien !
+ */
 
 let startTime = null, previousEndTime = null;
 let currentWordIndex = 0;
@@ -12,6 +12,8 @@ let totalChars = 0;
 let correctChars = 0;
 const wordsToType = [];
 let isGameActive = false;
+let currentScore = 0;
+let statsIntervalId = null;
 
 const modeSelect = document.getElementById("mode");
 const wordDisplay = document.getElementById("word-display");
@@ -30,14 +32,25 @@ const quitBtn = document.getElementById("quit-btn");
 const endMessage = document.getElementById("end-message");
 const finalWpm = document.getElementById("final-wpm");
 const finalAccuracy = document.getElementById("final-accuracy");
+const finalScore = document.getElementById("final-score");
+const finalProgress = document.getElementById("final-progress");
+const progressFill = document.getElementById("progress-fill");
+const scoreFill = document.getElementById("score-fill");
 
 // Theme toggle
 const themeToggle = document.getElementById("theme-toggle");
 
+// Stockage des scores les plus élevés (à remplacer par un vrai stockage persistant)
+const highScores = {
+    easy: { wpm: 40, score: 200 },
+    medium: { wpm: 60, score: 300 },
+    hard: { wpm: 80, score: 450 }
+};
+
 const words = {
-    easy: ["apple", "banana", "grape", "orange", "cherry"],
-    medium: ["keyboard", "monitor", "printer", "charger", "battery"],
-    hard: ["synchronize", "complicated", "development", "extravagant", "misconception"]
+    easy: ["apple", "banana", "grape", "orange", "cherry", "melon", "pear", "peach", "lemon", "lime"],
+    medium: ["keyboard", "monitor", "printer", "charger", "battery", "computer", "laptop", "desktop", "wireless", "screen"],
+    hard: ["synchronize", "complicated", "development", "extravagant", "misconception", "sophisticated", "revolutionary", "extraordinary", "comprehensive", "fundamental"]
 };
 
 const getRandomWord = (mode) => {
@@ -53,6 +66,7 @@ const startTest = (wordCount = 50) => {
     previousEndTime = null;
     totalChars = 0;
     correctChars = 0;
+    currentScore = 0;
     isGameActive = true;
 
     for (let i = 0; i < wordCount; i++) {
@@ -69,12 +83,15 @@ const startTest = (wordCount = 50) => {
 
     inputField.value = "";
     inputField.disabled = false;
-    results.textContent = "";
+    results.innerHTML = "";
     wpmElement.textContent = "WPM:...";
     accuracyElement.textContent = "ACCURACY:...";
     
     inputField.focus();
     centerCurrentWord();
+
+    // Démarrer l'intervalle de statistiques
+    startStatsInterval();
 };
 
 const startTimer = () => {
@@ -91,34 +108,68 @@ const getCurrentStats = () => {
     const wpm = (totalCharacters / 5) / (elapsedTime / 60);
     
     const accuracy = (correctChars / Math.max(totalChars, 1)) * 100;
+    
+    // Calculer le score basé sur la vitesse et la précision
+    const baseScore = wpm * (accuracy / 100);
+    const difficultyMultiplier = modeSelect.value === 'easy' ? 1 : modeSelect.value === 'medium' ? 1.5 : 2;
+    currentScore = Math.round(baseScore * difficultyMultiplier);
 
     return { 
         wpm: wpm.toFixed(2), 
-        accuracy: Math.min(accuracy, 100).toFixed(2) 
+        accuracy: Math.min(accuracy, 100).toFixed(2),
+        score: currentScore
     };
 };
+
 const getCompletionMessage = (accuracy) => {
     const accuracyNum = parseFloat(accuracy);
     
     if (accuracyNum >= 98) {
-        return "✨ Test completed! Excellent work, it's almost perfect! ✨";
+        return " Test completed! Excellent work, it's almost perfect! ";
     } else if (accuracyNum >= 90) {
-        return "🎉 Test completed! Very good performance, keep it up! 🎉";
+        return " Test completed! Very good performance, keep it up! ";
     } else if (accuracyNum >= 80) {
-        return "👍 Test completed! Good work, but you can still improve! 👍";
+        return " Test completed! Good work, but you can still improve! ";
     } else if (accuracyNum >= 70) {
-        return "🙂 Test completed! Not bad, with a little more practice you'll be at the top! 🙂";
+        return " Test completed! Not bad, with a little more practice you'll be at the top! ";
     } else if (accuracyNum >= 50) {
-        return "🤔 Test completed! Try to focus on accuracy rather than speed.";
+        return " Test completed! Try to focus on accuracy rather than speed.";
     } else {
-        return "💪 Test completed! Don't give up, with practice you will progress! 💪";
+        return " Test completed! Don't give up, with practice you will progress! ";
     }
 };
+
 const animateCorrectWord = (wordElement) => {
     wordElement.classList.add('correct-word-animation');
     setTimeout(() => {
         wordElement.classList.remove('correct-word-animation');
     }, 600);
+};
+
+// Fonctions pour l'affichage des résultats
+const getDifficultyDescription = (difficulty) => {
+    switch(difficulty) {
+        case 'easy':
+            return 'Perfect for beginners';
+        case 'medium':
+            return 'For intermediate typists';
+        case 'hard':
+            return 'For advanced typists';
+        default:
+            return 'Select your level';
+    }
+};
+
+const calculateProgress = () => {
+    // Pourcentage d'achèvement par rapport au nombre total de mots
+    if (currentWordIndex === 0) return 0;
+    return Math.min(Math.round((currentWordIndex / wordsToType.length) * 100), 100);
+};
+
+const calculateScorePercentage = (score, difficulty) => {
+    // Calculer le score en pourcentage par rapport au score maximal pour ce niveau
+    const targetScore = highScores[difficulty].score;
+    return Math.min((score / targetScore) * 100, 100);
 };
 
 const updateLiveStats = () => {
@@ -129,7 +180,21 @@ const updateLiveStats = () => {
     accuracyElement.textContent = `ACCURACY: ${stats.accuracy}%`;
 };
 
-setInterval(updateLiveStats, 500);
+// Fonctions pour gérer l'intervalle de statistiques
+const startStatsInterval = () => {
+    // Arrêter l'intervalle existant s'il existe
+    if (statsIntervalId) {
+        clearInterval(statsIntervalId);
+    }
+    statsIntervalId = setInterval(updateLiveStats, 500);
+};
+
+const stopStatsInterval = () => {
+    if (statsIntervalId) {
+        clearInterval(statsIntervalId);
+        statsIntervalId = null;
+    }
+};
 
 const centerCurrentWord = () => {
     if (currentWordIndex >= wordsToType.length) return;
@@ -231,15 +296,33 @@ const endGame = () => {
     isGameActive = false;
     inputField.disabled = true;
     
+    // Arrêter l'intervalle de statistiques
+    stopStatsInterval();
+    
     const stats = getCurrentStats();
     const message = getCompletionMessage(stats.accuracy);
+    const difficulty = modeSelect.value;
+    const progress = calculateProgress();
+    const scorePercentage = calculateScorePercentage(stats.score, difficulty);
     
-    results.textContent = message;
+    // Mettre à jour le score le plus élevé si nécessaire
+    if (parseFloat(stats.wpm) > highScores[difficulty].wpm) {
+        highScores[difficulty].wpm = parseFloat(stats.wpm);
+    }
+    if (stats.score > highScores[difficulty].score) {
+        highScores[difficulty].score = stats.score;
+    }
     
-    // Show end game modal
+    // Afficher les résultats dans le modal de fin
     finalWpm.textContent = `WPM: ${stats.wpm}`;
     finalAccuracy.textContent = `Accuracy: ${stats.accuracy}%`;
     endMessage.textContent = message;
+    finalScore.textContent = `Score: ${stats.score} pts`;
+    finalProgress.textContent = `Progress: ${progress}%`;
+    
+    // Mettre à jour les barres de progression
+    progressFill.style.width = `${progress}%`;
+    scoreFill.style.width = `${scorePercentage}%`;
     
     setTimeout(() => {
         endModal.style.display = "flex";
@@ -253,6 +336,7 @@ const continueGame = () => {
 
 const restartGame = () => {
     endModal.style.display = "none";
+    stopStatsInterval();  // Arrêter l'intervalle
     modeSelect.value = "easy";
     const event = new Event('change');
     modeSelect.dispatchEvent(event);
@@ -266,6 +350,7 @@ const restartGame = () => {
 
 const quitGame = () => {
     endModal.style.display = "none";
+    stopStatsInterval();  // Arrêter l'intervalle
     showStartModal();
 };
 
