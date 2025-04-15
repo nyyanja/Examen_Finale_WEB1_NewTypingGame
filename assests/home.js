@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let email = document.getElementById("email").value.trim();
     let password = document.getElementById("password").value.trim();
     let errorMessage = document.getElementById("errorMessage");
-    let button = document.getElementById("login-button");
+    let button = document.getElementById("sign-in");
 
     let userMail = "NeonTyper@gmail.com";
     let userPassword = "123456";
@@ -63,10 +63,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
       setTimeout(() => {
         clearInterval(loadingDot);
-        window.location.href = "game.html";
+        window.location.href = "assests/game.html";
       }, 4000);
+    } else {
+      errorMessage.style.display = "flex";
+      setTimeout(() => {
+        button.textContent = "Login";
+        document.getElementById("email").value = "";
+        document.getElementById("password").value = "";
+      }, 100);
     }
   });
+
+  document.getElementById("email").addEventListener("input", () => {
+    document.getElementById("errorMessage").style.display = "none";
+  });
+
+  document.getElementById("password").addEventListener("input", () => {
+    document.getElementById("errorMessage").style.display = "none";
+  });
+
   //fin du login de miora
 
   //ajout clavier
