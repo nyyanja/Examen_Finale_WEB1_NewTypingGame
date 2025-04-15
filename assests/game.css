@@ -87,7 +87,7 @@ body {
 
 .word-display-container {
     position: relative;
-    border: 2px solid var(--primary-color);
+    border: 0px solid var(--primary-color);
     border-radius: 15px;
     padding: 20px;
     height: 100px;
@@ -113,7 +113,7 @@ body {
 
 #word-display span.current {
     font-weight: bold;
-    text-decoration: underline;
+    color: var(--primary-color);
 }
 
 #word-display span.correct {
@@ -185,11 +185,11 @@ body {
     box-shadow: var(--box-shadow);
     text-align: center;
     max-width: 90%;
-    width: 500px;
+    width: 600px;
 }
 
 .modal-title {
-    font-size: 28px;
+    font-size: 35px;
     margin-bottom: 20px;
     color: var(--primary-color);
 }
@@ -201,7 +201,8 @@ body {
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 20px;
+    font-weight: bold;
     margin: 10px;
     transition: all 0.3s ease;
 }
@@ -336,5 +337,170 @@ body {
         padding: 8px 16px;
         font-size: 14px;
         margin: 5px;
+    }
+}
+
+/* Styles de base pour les modals */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--modal-bg);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--container-bg);
+    color: var(--text-color);
+    border-radius: 10px;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: var(--box-shadow);
+    position: relative;
+    animation: modalFadeIn 0.4s ease;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Style spécifique pour le modal de fin */
+#end-modal .modal-content {
+    text-align: center;
+}
+
+#end-message {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.result-stats {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.stat-item {
+    background-color: var(--bg-color);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin: 5px;
+    min-width: 120px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Barres de progression */
+.progress-container {
+    margin-bottom: 20px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: var(--bg-color);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    transition: width 0.5s ease-in-out;
+}
+
+/* Score fill pourrait avoir une couleur légèrement différente */
+#score-fill {
+    background-color: var(--correct-color);
+}
+
+/* Boutons du modal */
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.modal-buttons button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+#continue-btn {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+#continue-btn:hover {
+    background-color: #e445a9; /* Version plus foncée du rose */
+    box-shadow: var(--box-shadow);
+}
+
+#restart-btn {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+#restart-btn:hover {
+    background-color: #2a2a2a;
+    box-shadow: var(--box-shadow);
+}
+
+#quit-btn {
+    background-color: var(--wrong-color);
+    color: var(--text-color);
+}
+
+#quit-btn:hover {
+    background-color: #d32f2f; /* Version plus foncée du rouge */
+    box-shadow: 0 0 15px rgba(244, 67, 54, 0.5);
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 600px) {
+    .modal-content {
+        padding: 20px;
+        width: 95%;
+    }
+    
+    .result-stats {
+        flex-direction: column;
+    }
+    
+    .stat-item {
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    .modal-buttons {
+        flex-direction: column;
+    }
+    
+    .modal-buttons button {
+        width: 100%;
+        margin: 5px 0;
     }
 }
