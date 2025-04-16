@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="assests/styles.css">
     <link rel="icon" href="assests/images/logo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script src="assests/home.js" defer></script>
 
 
 </head>
@@ -20,13 +21,125 @@
         </div>
         
         <nav>
-            <a href="#">HOME</a>
-            <a href="#">ABOUT US</a>
+            <a href="#home">HOME</a>
+            <a href="#about-us">ABOUT US</a>
         </nav>
-        
-        <a href="#" class="sign-in">SIGN IN</a>
+        <button class="sign-in-btn" id="signInButton">SIGN IN</button>
     </header>
 
-    
+    <div class="main-wrapper" id="home">
+        <div class="container">
+            <div class="main-content">
+                <div class="left-content">
+                    <h1 class="welcome-title">
+                        WELCOME<br>
+                        TO <span class="neon-brand">NEONTYPER</span>
+                    </h1>
+                    
+                    <p class="description">
+                        Test your speed, challenge your friends, and type like a pro — welcome to NEONTyper, where typing becomes a thrilling race!
+                    </p>
+                    
+                    <div class="social-icons">
+                        <div class="social-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <div class="social-icon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </div>
+                        <div class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="keyboard-area">
+                    <div class="keyboard" id="keyboard">
+                      <div class="row" id="row1"></div>
+                      <div class="row" id="row2"></div>
+                      <div class="row" id="row3"></div>
+                      <div class="row" id="row4"></div>
+                    </div>
+                  </div> 
+            </div>
+        </div>
+    </div>
+
+
+    <section id="about-us"></section>
+        <div class="about-content">
+            <div class="about-info">
+                <h1 class="neon-title">NEONTYPER</h1>
+                <p class="description">
+                    Discover the ultimate typing experience with NeonTyper, where speed meets style in a vibrant neon atmosphere. Our platform is designed to enhance your typing skills while providing an engaging and visually stunning environment.
+                </p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="words-count">0</span>
+                        <span class="stat-label">WORDS</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="fun-percent">0</span>
+                        <span class="stat-label">FUN</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="levels-section">
+                <h2 class="level-title">LEVEL</h2>
+                
+                <div class="level">
+                    <h3 class="level-name">EASY</h3>
+                    <p class="level-description">
+                        Perfect for beginners. Practice with common words and simple sentences to build your foundation in typing.
+                    </p>
+                </div>
+                
+                <div class="level">
+                    <h3 class="level-name">MEDIUM</h3>
+                    <p class="level-description">
+                        Challenge yourself with more complex vocabulary and longer sentences. Ideal for those looking to improve their speed and accuracy.
+                    </p>
+                </div>
+                
+                <div class="level">
+                    <h3 class="level-name">HARD</h3>
+                    <p class="level-description">
+                        For experienced typists seeking a real challenge. Master complex passages, technical terminology, and achieve professional typing speeds.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="login-container">
+            <button class="close-btn" id="closeBtn">✕</button>
+            <h2 class="login-title">LOG <span>IN</span></h2>
+            <p class="login-description">Log in to join the race!</p>
+            <form id="loginForm">
+                <div class="input__container">
+                    <div class="input__container--mail">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <input type="email" id="email" placeholder="Email..." required>
+                    </div>
+                    <div class="input__container--password">
+                        <i class="fa-solid fa-lock"></i>
+                        <input id="password" type="password" placeholder="Password..." required>
+                    </div>
+                </div>
+                <button id="sign-in">Sign In</button>
+                <div id="errorMessage" class="error-message">
+                <p>Email or password invalid </p> 
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <button id="theme-toggle" class="theme-toggle">
+        <i class="fas fa-moon" id="dark-icon"></i>
+        <i class="fas fa-sun" id="light-icon" style="display: none;"></i>
+    </button>
+
 </body>
 </html>

@@ -1,0 +1,623 @@
+/* Variables de couleurs pour les thèmes */
+:root {
+    --primary-color: #f45ebd;
+    --bg-color: #222;
+    --text-color: #fff;
+    --container-bg: #333;
+    --correct-color: #4caf50;
+    --wrong-color: #f44336;
+    --modal-bg: rgba(34, 34, 34, 0.95);
+    --box-shadow: 0 0 15px rgba(244, 94, 189, 0.5);
+}
+
+[data-theme="light"] {
+    --primary-color: #f45ebd;
+    --bg-color: #f5f5f5;
+    --text-color: #333;
+    --container-bg: #fff;
+    --correct-color: #4caf50;
+    --wrong-color: #f44336;
+    --modal-bg: rgba(245, 245, 245, 0.95);
+    --box-shadow: 0 0 15px rgba(244, 94, 189, 0.3);
+}
+
+/* Styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto mono', monospace;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Conteneur principal */
+.container {
+    width: 100%;
+    max-width: 1000px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Titre */
+.title {
+    text-align: center;
+    font-size: 48px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.title span {
+    color: var(--primary-color);
+}
+
+/* Boutons de difficulté */
+.difficulty-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.difficulty-btn {
+    padding: 12px 30px;
+    border: 2px solid var(--primary-color);
+    background: transparent;
+    color: var(--text-color);
+    font-size: 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.difficulty-btn.active, .difficulty-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Zone d'affichage des mots - NOUVEAU STYLE LIVRE */
+.book-display-container {
+    position: relative;
+    border-radius: 8px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--container-bg);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 20px;
+}
+
+.book-page {
+    flex: 1;
+    padding: 25px 30px;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--container-bg);
+    border-left: 4px solid var(--primary-color);
+}
+
+.book-text {
+    font-family: 'Georgia', serif;
+    font-size: 20px;
+    line-height: 1.6;
+    text-align: justify;
+    position: relative;
+    transition: transform 0.5s ease;
+    padding-right: 15px;
+}
+
+.book-text span {
+    display: inline;
+    margin-right: 8px;
+    border-radius: 3px;
+    padding: 2px 0;
+    transition: all 0.2s ease;
+}
+
+.book-text span.current {
+    font-weight: bold;
+    color: var(--primary-color);
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--primary-color);
+}
+
+.book-text span.correct {
+    color: var(--correct-color);
+}
+
+.book-text span.wrong {
+    color: var(--wrong-color);
+}
+
+.book-decoration {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 15px;
+    display: flex;
+    overflow: hidden;
+}
+
+.book-edge {
+    width: 15px;
+    background: linear-gradient(to right, rgba(0,0,0,0.1), rgba(0,0,0,0.25));
+}
+
+.book-shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset -5px 0 10px rgba(0,0,0,0.2);
+}
+
+/* Champ de saisie */
+#input-field {
+    padding: 15px;
+    font-size: 18px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50px;
+    outline: none;
+    width: 100%;
+    background-color: var(--container-bg);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+#input-field:focus {
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+/* Conteneur de statistiques */
+.stats-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.stat {
+    padding: 10px 20px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50px;
+    font-size: 16px;
+    flex-grow: 1;
+    text-align: center;
+    background-color: var(--container-bg);
+}
+
+#results {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+    min-height: 30px;
+}
+
+/* Animations */
+.correct-word-animation {
+    background-color: rgba(76, 175, 80, 0.15);
+    transition: background-color 0.5s ease;
+}
+
+/* Bouton de thème */
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: rotate(30deg);
+}
+
+/* Style du bouton de déconnexion */
+.logout-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--container-bg);
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-color);
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+    box-shadow: var(--box-shadow);
+}
+
+.logout-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--primary-color);
+}
+
+/* Animation pour le bouton de déconnexion */
+@keyframes pulseLogout {
+    0% { transform: scale(1); box-shadow: var(--box-shadow); }
+    50% { transform: scale(1.1); box-shadow: 0 0 20px var(--primary-color); }
+    100% { transform: scale(1); box-shadow: var(--box-shadow); }
+}
+
+.logout-btn:active {
+    animation: pulseLogout 0.3s ease;
+}
+
+/* Styles des modals */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--modal-bg);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: var(--container-bg);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    max-width: 90%;
+    width: 600px;
+    color: var(--text-color);
+    position: relative;
+    animation: modalFadeIn 0.4s ease;
+}
+
+.modal-title {
+    font-size: 35px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.btn {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+.end-stats {
+    margin: 20px 0;
+    font-size: 18px;
+}
+
+/* Animations des modals */
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalPulse {
+    0% { transform: scale(0.9); opacity: 0; }
+    70% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Style spécifique pour le modal de fin */
+#end-modal .modal-content {
+    text-align: center;
+}
+
+#end-message {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.result-stats {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.stat-item {
+    background-color: var(--bg-color);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin: 5px;
+    min-width: 120px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Barres de progression */
+.progress-container {
+    margin-bottom: 20px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: var(--bg-color);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    transition: width 0.5s ease-in-out;
+}
+
+#score-fill {
+    background-color: var(--correct-color);
+}
+
+/* Boutons du modal */
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.modal-buttons button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+#continue-btn {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+#continue-btn:hover {
+    background-color: #e445a9; 
+    box-shadow: var(--box-shadow);
+}
+
+#restart-btn {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+#restart-btn:hover {
+    background-color: #2a2a2a;
+    box-shadow: var(--box-shadow);
+}
+
+#quit-btn {
+    background-color: var(--wrong-color);
+    color: var(--text-color);
+}
+
+#quit-btn:hover {
+    background-color: #d32f2f; 
+    box-shadow: 0 0 15px rgba(244, 67, 54, 0.5);
+}
+
+/* Modal spécifique pour la déconnexion */
+#logout-modal .modal-content {
+    max-width: 400px;
+    border: 2px solid var(--primary-color);
+    animation: modalPulse 0.5s ease-in-out;
+}
+
+#logout-modal .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+#logout-modal .modal-buttons button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 50px;
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+#logout-modal #cancel-logout-btn:hover {
+    background-color: #555;
+}
+
+#logout-modal #confirm-logout-btn:hover {
+    background-color: #ff69c5;
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+/* MEDIA QUERIES */
+
+/* Pour tablettes */
+@media (max-width: 768px) {
+    .title {
+        font-size: 36px;
+    }
+
+    .difficulty-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    .book-display-container {
+        height: 160px;
+    }
+    
+    .book-page {
+        padding: 20px 25px;
+    }
+    
+    .book-text {
+        font-size: 18px;
+    }
+
+    #input-field {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .stat {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+    
+    .logout-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    #logout-modal .modal-buttons button {
+        padding: 10px 20px;
+        font-size: 15px;
+    }
+}
+
+/* Pour mobiles */
+@media (max-width: 600px) {
+    .modal-content {
+        padding: 20px;
+        width: 95%;
+    }
+    
+    .result-stats {
+        flex-direction: column;
+    }
+    
+    .stat-item {
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    .modal-buttons {
+        flex-direction: column;
+    }
+    
+    .modal-buttons button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+/* Pour petits mobiles */
+@media (max-width: 480px) {
+    .title {
+        font-size: 28px;
+    }
+
+    .difficulty-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .book-display-container {
+        height: 140px;
+    }
+    
+    .book-page {
+        padding: 15px 20px;
+    }
+    
+    .book-text {
+        font-size: 16px;
+    }
+
+    .stats-container {
+        flex-direction: column;
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+
+    .modal-title {
+        font-size: 22px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 14px;
+        margin: 5px;
+    }
+    
+    .logout-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    #logout-modal .modal-content {
+        max-width: 90%;
+    }
+    
+    #logout-modal .modal-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    #logout-modal .modal-buttons button {
+        width: 100%;
+        padding: 10px;
+    }
+}
