@@ -22,6 +22,7 @@ html {
     --scrollbar-bg: #333333;
     --scrollbar-thumb: #ff00d4;
     --levels-section-border: #ff00d4;
+    --wrong-color: #f44336;
 }
 
 [data-theme="light"] {
@@ -55,10 +56,139 @@ html {
 
 /*sign in et key en mode light*/
 [data-theme="light"] .sign-in-btn, 
-[data-theme="light"] .key{
+[data-theme="light"] .key,
+[data-theme="light"] .login-title{
     color: var(--text-color) !important;
 }
 /*fin sign in et key en mode light*/
+
+/* Style pour le login en mode light */
+[data-theme="light"] .modal-overlay {
+    background-color: rgba(245, 245, 245, 0.9);
+}
+
+[data-theme="light"] .login-container {
+    background-color: var(--card-bg);
+    border: 1px solid var(--neon-color);
+    box-shadow: 0 0 20px rgba(211, 98, 181, 0.3);
+}
+
+[data-theme="light"] .login-title {
+    color: var(--text-color);
+}
+
+[data-theme="light"] .login-title span {
+    color: var(--neon-color);
+}
+
+[data-theme="light"] .login-description {
+    color: var(--secondary-text-color);
+}
+
+[data-theme="light"] .input__container--mail,
+[data-theme="light"] .input__container--password {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(211, 98, 181, 0.6);
+}
+
+[data-theme="light"] .input__container--mail i,
+[data-theme="light"] .input__container--password i {
+    color: var(--text-color);
+}
+
+[data-theme="light"] .input__container--mail input,
+[data-theme="light"] .input__container--password input {
+    background-color: transparent;
+    color: var(--text-color);
+}
+
+/* Style amélioré pour le login en mode dark */
+[data-theme="dark"] .modal-overlay {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="dark"] .login-container {
+    background-color: var(--card-bg);
+    border: 1px solid var(--neon-color);
+    box-shadow: 0 0 25px rgba(255, 0, 212, 0.4);
+    border-radius: 10px;
+}
+
+[data-theme="dark"] .login-title {
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 0 5px var(--neon-color);
+}
+
+[data-theme="dark"] .login-title span {
+    color: var(--neon-color);
+    text-shadow: 0 0 8px var(--neon-color);
+}
+
+[data-theme="dark"] .login-description {
+    color: var(--secondary-text-color);
+}
+
+[data-theme="dark"] .input__container--mail,
+[data-theme="dark"] .input__container--password {
+    background-color: rgba(30, 30, 30, 0.7);
+    border: 1px solid rgba(255, 0, 212, 0.6);
+    box-shadow: 0 0 8px rgba(255, 0, 212, 0.2);
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .input__container--mail:focus-within,
+[data-theme="dark"] .input__container--password:focus-within {
+    box-shadow: 0 0 12px rgba(255, 0, 212, 0.5);
+    border: 1px solid rgba(255, 0, 212, 0.8);
+}
+
+[data-theme="dark"] .input__container--mail i,
+[data-theme="dark"] .input__container--password i {
+    color: var(--neon-color);
+}
+
+[data-theme="dark"] input {
+    background-color: transparent !important;
+    color: white;
+    outline: none;
+}
+
+[data-theme="dark"] #sign-in {
+    background-color: var(--neon-color);
+    border: 2px solid var(--neon-color);
+    box-shadow: 0 0 15px rgba(255, 0, 212, 0.5);
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] #sign-in:hover {
+    box-shadow: 0 0 20px rgba(255, 0, 212, 0.7);
+    transform: translateY(-2px);
+}
+
+[data-theme="dark"] .close-btn {
+    color: var(--neon-color);
+    text-shadow: 0 0 5px var(--neon-color);
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .close-btn:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0 8px var(--neon-color);
+}
+
+/* Animation pour les bordures en mode dark */
+@keyframes glowBorder {
+    0% { box-shadow: 0 0 10px rgba(255, 0, 212, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(255, 0, 212, 0.7); }
+    100% { box-shadow: 0 0 10px rgba(255, 0, 212, 0.3); }
+}
+
+[data-theme="dark"] .login-container {
+    animation: glowBorder 3s infinite;
+}
+/*fin du login mode light*/
+
 .theme-toggle {
     position: fixed;
     bottom: 30px;
@@ -85,6 +215,7 @@ html {
 
 .theme-toggle i {
     font-size: 22px;
+    padding: 50px;
 }
 
 body.theme-transition,
@@ -282,9 +413,10 @@ nav a:hover::after {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0px;
+    /* margin: 20px 0px; */
+    margin-top: 100px;
     flex-wrap: wrap;
-    gap: 150px;
+    gap: 200px;
 }
 
 .left-content {
@@ -354,6 +486,7 @@ nav a:hover::after {
 
 .social-icon i {
     transition: all 0.3s;
+    padding: 10px;
 }
 
 .social-icon:hover i {
@@ -618,7 +751,7 @@ nav a:hover::after {
 .login-description {
     margin-bottom: 30px;
     color: #ccc;
-    font-size: 14px;
+    font-size: 20px;
 }
 
 #loginForm{
@@ -627,13 +760,15 @@ nav a:hover::after {
 
 input {
     width: 100%;
-    height: 8vh;
+    height: 5vh;
     padding: 0.5rem;
+    color: var(--text-color);
     outline: none; 
     border: none;
     border-radius: 5px; 
-    background-color: var(--white);
+    background-color: transparent;
 } 
+
 
 i{
     font-size: 1.5rem;
@@ -653,9 +788,9 @@ i{
     padding: 8px;
     margin-bottom: 20px;
     border-radius: 25px;
-    background-color: rgba(40, 40, 40, 0.7);;
+    background-color: transparent;
     border: 1px solid rgba(255, 0, 255, 0.6);
-    color: var(--secondary-text-color);
+    color: var(--text-color);
     outline: none;
     align-items: center;
 }
@@ -663,6 +798,7 @@ i{
 #sign-in {
     background-color: #ff00ff;
     color: white;
+    font-size: 20px;
     border: 2px solid #ff00ff;
     border-radius: 30px;
     padding: 12px 40px;
@@ -679,7 +815,7 @@ i{
 #errorMessage{
     display: none;
     margin: 2rem auto;
-    background-color: #ef233c;
+    background-color: var(--wrong-color);
     padding: 0.5rem;
     width: 60%;
     color: var(--white);
