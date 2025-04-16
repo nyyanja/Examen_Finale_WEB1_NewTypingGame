@@ -1,3 +1,4 @@
+/* Variables de couleurs pour les thèmes */
 :root {
     --primary-color: #f45ebd;
     --bg-color: #222;
@@ -20,6 +21,7 @@
     --box-shadow: 0 0 15px rgba(244, 94, 189, 0.3);
 }
 
+/* Styles de base */
 * {
     margin: 0;
     padding: 0;
@@ -39,6 +41,7 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Conteneur principal */
 .container {
     width: 100%;
     max-width: 1000px;
@@ -48,6 +51,7 @@ body {
     gap: 20px;
 }
 
+/* Titre */
 .title {
     text-align: center;
     font-size: 48px;
@@ -60,6 +64,7 @@ body {
     color: var(--primary-color);
 }
 
+/* Boutons de difficulté */
 .difficulty-container {
     display: flex;
     justify-content: center;
@@ -85,45 +90,86 @@ body {
     color: white;
 }
 
-.word-display-container {
+/* Zone d'affichage des mots - NOUVEAU STYLE LIVRE */
+.book-display-container {
     position: relative;
-    border: 0px solid var(--primary-color);
-    border-radius: 15px;
-    padding: 20px;
-    height: 100px;
+    border-radius: 8px;
+    height: 180px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     overflow: hidden;
     background-color: var(--container-bg);
     box-shadow: var(--box-shadow);
+    margin-bottom: 20px;
 }
 
-#word-display {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 15px;
-    transition: transform 0.3s ease;
-    font-size: 24px;
-    white-space: nowrap;
+.book-page {
+    flex: 1;
+    padding: 25px 30px;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--container-bg);
+    border-left: 4px solid var(--primary-color);
 }
 
-#word-display span {
+.book-text {
+    font-family: 'Georgia', serif;
+    font-size: 20px;
+    line-height: 1.6;
+    text-align: justify;
+    position: relative;
+    transition: transform 0.5s ease;
+    padding-right: 15px;
+}
+
+.book-text span {
+    display: inline;
+    margin-right: 8px;
+    border-radius: 3px;
+    padding: 2px 0;
     transition: all 0.2s ease;
 }
 
-#word-display span.current {
+.book-text span.current {
     font-weight: bold;
     color: var(--primary-color);
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--primary-color);
 }
 
-#word-display span.correct {
+.book-text span.correct {
     color: var(--correct-color);
 }
 
-#word-display span.wrong {
+.book-text span.wrong {
     color: var(--wrong-color);
 }
 
+.book-decoration {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 15px;
+    display: flex;
+    overflow: hidden;
+}
+
+.book-edge {
+    width: 15px;
+    background: linear-gradient(to right, rgba(0,0,0,0.1), rgba(0,0,0,0.25));
+}
+
+.book-shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset -5px 0 10px rgba(0,0,0,0.2);
+}
+
+/* Champ de saisie */
 #input-field {
     padding: 15px;
     font-size: 18px;
@@ -140,6 +186,7 @@ body {
     box-shadow: 0 0 10px var(--primary-color);
 }
 
+/* Conteneur de statistiques */
 .stats-container {
     display: flex;
     justify-content: space-between;
@@ -165,6 +212,69 @@ body {
     min-height: 30px;
 }
 
+/* Animations */
+.correct-word-animation {
+    background-color: rgba(76, 175, 80, 0.15);
+    transition: background-color 0.5s ease;
+}
+
+/* Bouton de thème */
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: rotate(30deg);
+}
+
+/* Style du bouton de déconnexion */
+.logout-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--container-bg);
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-color);
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+    box-shadow: var(--box-shadow);
+}
+
+.logout-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--primary-color);
+}
+
+/* Animation pour le bouton de déconnexion */
+@keyframes pulseLogout {
+    0% { transform: scale(1); box-shadow: var(--box-shadow); }
+    50% { transform: scale(1.1); box-shadow: 0 0 20px var(--primary-color); }
+    100% { transform: scale(1); box-shadow: var(--box-shadow); }
+}
+
+.logout-btn:active {
+    animation: pulseLogout 0.3s ease;
+}
+
+/* Styles des modals */
 .modal {
     position: fixed;
     top: 0;
@@ -186,6 +296,9 @@ body {
     text-align: center;
     max-width: 90%;
     width: 600px;
+    color: var(--text-color);
+    position: relative;
+    animation: modalFadeIn 0.4s ease;
 }
 
 .modal-title {
@@ -217,126 +330,16 @@ body {
     font-size: 18px;
 }
 
-.correct-word-animation {
-    transform: scale(1.1);
-    transition: transform 0.2s ease;
-}
-
-.theme-toggle {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: transparent;
-    border: none;
-    color: var(--text-color);
-    font-size: 24px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.theme-toggle:hover {
-    transform: rotate(30deg);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .title {
-        font-size: 36px;
-    }
-
-    .difficulty-btn {
-        padding: 10px 20px;
-        font-size: 16px;
-    }
-
-    .word-display-container {
-        height: 80px;
-        padding: 15px;
-    }
-
-    #word-display {
-        font-size: 20px;
-    }
-
-    #input-field {
-        padding: 12px;
-        font-size: 16px;
-    }
-
-    .stat {
-        padding: 8px 15px;
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 480px) {
-    .title {
-        font-size: 28px;
-    }
-
-    .difficulty-btn {
-        padding: 8px 16px;
-        font-size: 14px;
-    }
-
-    .word-display-container {
-        height: 70px;
-        padding: 10px;
-    }
-
-    #word-display {
-        font-size: 18px;
-        gap: 10px;
-    }
-
-    .stats-container {
-        flex-direction: column;
-    }
-
-    .modal-content {
-        padding: 20px;
-    }
-
-    .modal-title {
-        font-size: 22px;
-    }
-
-    .btn {
-        padding: 8px 16px;
-        font-size: 14px;
-        margin: 5px;
-    }
-}
-
-/* Styles de base pour les modals */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--modal-bg);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background-color: var(--container-bg);
-    color: var(--text-color);
-    border-radius: 10px;
-    padding: 30px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: var(--box-shadow);
-    position: relative;
-    animation: modalFadeIn 0.4s ease;
-}
-
+/* Animations des modals */
 @keyframes modalFadeIn {
     from { opacity: 0; transform: translateY(-50px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalPulse {
+    0% { transform: scale(0.9); opacity: 0; }
+    70% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
 }
 
 /* Style spécifique pour le modal de fin */
@@ -395,7 +398,6 @@ body {
     transition: width 0.5s ease-in-out;
 }
 
-/* Score fill pourrait avoir une couleur légèrement différente */
 #score-fill {
     background-color: var(--correct-color);
 }
@@ -423,7 +425,7 @@ body {
 }
 
 #continue-btn:hover {
-    background-color: #e445a9; /* Version plus foncée du rose */
+    background-color: #e445a9; 
     box-shadow: var(--box-shadow);
 }
 
@@ -443,73 +445,8 @@ body {
 }
 
 #quit-btn:hover {
-    background-color: #d32f2f; /* Version plus foncée du rouge */
+    background-color: #d32f2f; 
     box-shadow: 0 0 15px rgba(244, 67, 54, 0.5);
-}
-
-/* Responsive pour petits écrans */
-@media (max-width: 600px) {
-    .modal-content {
-        padding: 20px;
-        width: 95%;
-    }
-    
-    .result-stats {
-        flex-direction: column;
-    }
-    
-    .stat-item {
-        width: 100%;
-        margin: 5px 0;
-    }
-    
-    .modal-buttons {
-        flex-direction: column;
-    }
-    
-    .modal-buttons button {
-        width: 100%;
-        margin: 5px 0;
-    }
-}
-
-/* Style du bouton de déconnexion */
-.logout-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: var(--container-bg);
-    border: 2px solid var(--primary-color);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--primary-color);
-    font-size: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 100;
-    box-shadow: var(--box-shadow);
-}
-
-.logout-btn:hover {
-    background-color: var(--primary-color);
-    color: white;
-    transform: scale(1.1);
-    box-shadow: 0 0 15px var(--primary-color);
-}
-
-/* Animation pour le bouton */
-@keyframes pulseLogout {
-    0% { transform: scale(1); box-shadow: var(--box-shadow); }
-    50% { transform: scale(1.1); box-shadow: 0 0 20px var(--primary-color); }
-    100% { transform: scale(1); box-shadow: var(--box-shadow); }
-}
-
-.logout-btn:active {
-    animation: pulseLogout 0.3s ease;
 }
 
 /* Modal spécifique pour la déconnexion */
@@ -517,12 +454,6 @@ body {
     max-width: 400px;
     border: 2px solid var(--primary-color);
     animation: modalPulse 0.5s ease-in-out;
-}
-
-@keyframes modalPulse {
-    0% { transform: scale(0.9); opacity: 0; }
-    70% { transform: scale(1.05); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
 }
 
 #logout-modal .modal-buttons {
@@ -552,8 +483,41 @@ body {
     box-shadow: 0 0 10px var(--primary-color);
 }
 
-/* Responsive pour le bouton de déconnexion */
+/* MEDIA QUERIES */
+
+/* Pour tablettes */
 @media (max-width: 768px) {
+    .title {
+        font-size: 36px;
+    }
+
+    .difficulty-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    .book-display-container {
+        height: 160px;
+    }
+    
+    .book-page {
+        padding: 20px 25px;
+    }
+    
+    .book-text {
+        font-size: 18px;
+    }
+
+    #input-field {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .stat {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+    
     .logout-btn {
         width: 45px;
         height: 45px;
@@ -568,7 +532,73 @@ body {
     }
 }
 
+/* Pour mobiles */
+@media (max-width: 600px) {
+    .modal-content {
+        padding: 20px;
+        width: 95%;
+    }
+    
+    .result-stats {
+        flex-direction: column;
+    }
+    
+    .stat-item {
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    .modal-buttons {
+        flex-direction: column;
+    }
+    
+    .modal-buttons button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+/* Pour petits mobiles */
 @media (max-width: 480px) {
+    .title {
+        font-size: 28px;
+    }
+
+    .difficulty-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .book-display-container {
+        height: 140px;
+    }
+    
+    .book-page {
+        padding: 15px 20px;
+    }
+    
+    .book-text {
+        font-size: 16px;
+    }
+
+    .stats-container {
+        flex-direction: column;
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+
+    .modal-title {
+        font-size: 22px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 14px;
+        margin: 5px;
+    }
+    
     .logout-btn {
         width: 40px;
         height: 40px;
