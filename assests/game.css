@@ -472,3 +472,122 @@ body {
         margin: 5px 0;
     }
 }
+
+/* Style du bouton de déconnexion */
+.logout-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--container-bg);
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-color);
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+    box-shadow: var(--box-shadow);
+}
+
+.logout-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--primary-color);
+}
+
+/* Animation pour le bouton */
+@keyframes pulseLogout {
+    0% { transform: scale(1); box-shadow: var(--box-shadow); }
+    50% { transform: scale(1.1); box-shadow: 0 0 20px var(--primary-color); }
+    100% { transform: scale(1); box-shadow: var(--box-shadow); }
+}
+
+.logout-btn:active {
+    animation: pulseLogout 0.3s ease;
+}
+
+/* Modal spécifique pour la déconnexion */
+#logout-modal .modal-content {
+    max-width: 400px;
+    border: 2px solid var(--primary-color);
+    animation: modalPulse 0.5s ease-in-out;
+}
+
+@keyframes modalPulse {
+    0% { transform: scale(0.9); opacity: 0; }
+    70% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+#logout-modal .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+#logout-modal .modal-buttons button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 50px;
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+#logout-modal #cancel-logout-btn:hover {
+    background-color: #555;
+}
+
+#logout-modal #confirm-logout-btn:hover {
+    background-color: #ff69c5;
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+/* Responsive pour le bouton de déconnexion */
+@media (max-width: 768px) {
+    .logout-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    #logout-modal .modal-buttons button {
+        padding: 10px 20px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logout-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    #logout-modal .modal-content {
+        max-width: 90%;
+    }
+    
+    #logout-modal .modal-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    #logout-modal .modal-buttons button {
+        width: 100%;
+        padding: 10px;
+    }
+}

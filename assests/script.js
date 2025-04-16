@@ -414,3 +414,93 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Show modal on load
 showStartModal();
+
+// Fonction pour gérer la déconnexion avec animation
+const handleLogout = () => {
+    // Créer un modal de déconnexion
+    const createLogoutModal = () => {
+        // Créer les éléments du modal
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.id = 'logout-modal';
+        modal.style.display = 'flex';
+        
+        const modalContent = document.createElement('div');
+        modalContent.className = 'modal-content';
+        
+        const title = document.createElement('h2');
+        title.className = 'modal-title';
+        title.textContent = 'Log Out';
+        
+        const message = document.createElement('p');
+        message.textContent = 'Are you sure you want to log out?';
+        
+        const buttonContainer = document.createElement('div');
+        buttonContainer.className = 'modal-buttons';
+        
+        const cancelBtn = document.createElement('button');
+        cancelBtn.id = 'cancel-logout-btn';
+        cancelBtn.textContent = 'Cancel';
+        cancelBtn.style.backgroundColor = 'var(--bg-color)';
+        
+        const confirmBtn = document.createElement('button');
+        confirmBtn.id = 'confirm-logout-btn';
+        confirmBtn.textContent = 'Log Out';
+        confirmBtn.style.backgroundColor = 'var(--primary-color)';
+        
+        // Assembler le modal
+        buttonContainer.appendChild(cancelBtn);
+        buttonContainer.appendChild(confirmBtn);
+        
+        modalContent.appendChild(title);
+        modalContent.appendChild(message);
+        modalContent.appendChild(buttonContainer);
+        
+        modal.appendChild(modalContent);
+        
+        // Ajouter au corps du document
+        document.body.appendChild(modal);
+        
+        // Ajouter les écouteurs d'événements
+        cancelBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+            setTimeout(() => {
+                modal.remove();
+            }, 300);
+        });
+        
+        confirmBtn.addEventListener('click', () => {
+            // Animation de fondu avant redirection
+            document.body.style.transition = 'opacity 0.5s ease';
+            document.body.style.opacity = '0';
+            
+            // Arrêter le jeu et intervalles
+            isGameActive = false;
+            stopStatsInterval();
+            
+            // Rediriger vers la page d'accueil après l'animation
+            setTimeout(() => {
+                window.location.href = '/index.html'; // Ajustez selon votre structure de fichiers
+            }, 500);
+        });
+    };
+    
+    createLogoutModal();
+};
+
+// Ajouter l'écouteur d'événement après le chargement du DOM
+document.addEventListener('DOMContentLoaded', () => {
+    const existingFunctions = window.onload || function(){};
+    
+    window.onload = function() {
+        if(typeof existingFunctions === 'function') {
+            existingFunctions();
+        }
+        
+        // Initialiser le bouton de déconnexion
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', handleLogout);
+        }
+    };
+});
