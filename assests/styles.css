@@ -54,15 +54,12 @@ html {
     box-shadow: 0 0 8px var(--neon-color);
 }
 
-/*sign in et key en mode light*/
 [data-theme="light"] .sign-in-btn, 
 [data-theme="light"] .key,
 [data-theme="light"] .login-title{
     color: var(--text-color) !important;
 }
-/*fin sign in et key en mode light*/
 
-/* Style pour le login en mode light */
 [data-theme="light"] .modal-overlay {
     background-color: rgba(245, 245, 245, 0.9);
 }
@@ -102,7 +99,7 @@ html {
     color: var(--text-color);
 }
 
-/* Style amélioré pour le login en mode dark */
+
 [data-theme="dark"] .modal-overlay {
     background-color: rgba(0, 0, 0, 0.8);
 }
@@ -177,7 +174,6 @@ html {
     text-shadow: 0 0 8px var(--neon-color);
 }
 
-/* Animation pour les bordures en mode dark */
 @keyframes glowBorder {
     0% { box-shadow: 0 0 10px rgba(255, 0, 212, 0.3); }
     50% { box-shadow: 0 0 20px rgba(255, 0, 212, 0.7); }
@@ -187,7 +183,7 @@ html {
 [data-theme="dark"] .login-container {
     animation: glowBorder 3s infinite;
 }
-/*fin du login mode light*/
+
 
 .theme-toggle {
     position: fixed;
@@ -493,7 +489,6 @@ nav a:hover::after {
     transform: scale(1.2);
 }
 
-/*ajout style keyboard*/
 .keyboard-area {
     width: 50%;
     display: flex;
@@ -565,7 +560,6 @@ nav a:hover::after {
       font-size: 0.75rem;
     }
   }
-/*fin ajout style keyboard*/
 
 #about-us {
     padding: 2rem;
@@ -674,7 +668,6 @@ nav a:hover::after {
     flex: 1;
 }
 
-/*ajout style login de miora*/
 .sign-in-btn {
     background-color: transparent;
     color: white;
@@ -844,8 +837,6 @@ i{
     max-width: 800px;
     margin: 0 auto;
 }
-
-/*fin style login de miora*/
 
 @media (max-width: 1024px) {
     .main-content {

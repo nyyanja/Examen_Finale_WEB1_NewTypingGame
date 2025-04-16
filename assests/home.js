@@ -5,40 +5,34 @@ document.addEventListener("DOMContentLoaded", function () {
   const lightIcon = document.getElementById("light-icon");
   const htmlElement = document.documentElement;
 
-  //ajout du script login de miora
+  //Login Functionality
   const signInButton = document.getElementById("signInButton");
   const closeBtn = document.getElementById("closeBtn");
   const modalOverlay = document.getElementById("modalOverlay");
   const loginForm = document.getElementById("loginForm");
   const mainContent = document.getElementById("mainContent");
 
-  // Afficher le modal quand on clique sur SIGN IN
+  // Display modal when SIGN IN is clicked
   signInButton.addEventListener("click", function () {
     modalOverlay.style.display = "flex";
-    mainContent.classList.add("blur"); // Ajoute l'effet de flou
+    mainContent.classList.add("blur");
   });
 
-  // Fermer le modal quand on clique sur X
+  // Close modal when X is clicked
   closeBtn.addEventListener("click", function () {
     modalOverlay.style.display = "none";
-    mainContent.classList.remove("blur"); // Retire l'effet de flou
+    mainContent.classList.remove("blur"); 
   });
 
-  // Fermer le modal quand on clique en dehors du formulaire
+  // Close modal when clicked outside the form
   modalOverlay.addEventListener("click", function (event) {
     if (event.target === modalOverlay) {
       modalOverlay.style.display = "none";
-      mainContent.classList.remove("blur"); // Retire l'effet de flou
+      mainContent.classList.remove("blur"); 
     }
   });
 
-  // Empêcher le formulaire de rafraîchir la page à la soumission
-  loginForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-    // Ici vous pourriez ajouter la logique d'authentification
-    console.log("Formulaire soumis");
-  });
-  //remplissage du formulaire
+  //form filling
   document.getElementById("loginForm").addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -83,9 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("errorMessage").style.display = "none";
   });
 
-  //fin du login de miora
-
-  //ajout clavier
+  //keyboard Functionality
   const rows = {
     row1: "QWERTYUIOP",
     row2: "ASDFGHJKL",
@@ -128,8 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
   simulateTyping();
-  //fin ajout clavier miora
-
+  
   // Function to update the icon
   function updateIcon(theme) {
     if (theme === "light") {
