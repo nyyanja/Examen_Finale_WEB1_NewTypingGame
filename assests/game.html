@@ -1,55 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <!-- Métadonnées et configuration de la page -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Liens vers les ressources externes et styles -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assests/game.html">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="/assests/game.css">
+    
     <title>Typing Test</title>
 </head>
-
 <body>
+    <!-- Bouton de changement de thème -->
     <button id="theme-toggle" class="theme-toggle">
         <i class="fas fa-sun"></i>
     </button>
-     <!-- Ajout du bouton de déconnexion -->
-     <button id="logout-btn" class="logout-btn">
+    
+    <!-- Bouton de déconnexion -->
+    <button id="logout-btn" class="logout-btn">
         <i class="fas fa-sign-out-alt"></i>
     </button>
-
+    
+    <!-- Conteneur principal de l'application -->
     <div class="container">
+        <!-- Titre de l'application -->
         <h1 class="title">NEON<span>TYPER</span></h1>
-
+        
+        <!-- Sélection du niveau de difficulté -->
         <div class="difficulty-container">
             <button class="difficulty-btn active" data-difficulty="easy">EASY</button>
             <button class="difficulty-btn" data-difficulty="medium">MEDIUM</button>
             <button class="difficulty-btn" data-difficulty="hard">HARD</button>
         </div>
-
+        
+        <!-- Zone d'affichage des mots à taper -->
         <div class="word-display-container">
             <div id="word-display"></div>
         </div>
-
+        
+        <!-- Champ de saisie pour l'utilisateur -->
         <input type="text" id="input-field" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type here...">
-
+        
+        <!-- Affichage des statistiques en temps réel -->
         <div class="stats-container">
             <div id="wpm" class="stat">WPM:...</div>
             <div id="accuracy" class="stat">ACCURACY:...</div>
         </div>
-
+        
+        <!-- Zone d'affichage des résultats -->
         <div id="results"></div>
-
+        
+        <!-- Sélecteur de mode caché (probablement utilisé par JavaScript) -->
         <select id="mode" style="display: none;">
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
         </select>
     </div>
-
-    <!-- Start Modal -->
+    
+    <!-- Modal de démarrage du jeu -->
     <div id="start-modal" class="modal">
         <div class="modal-content">
             <h2 class="modal-title">Welcome to NeonTyper</h2>
@@ -58,17 +70,20 @@
             <button id="start-game-btn" class="btn">Start Game</button>
         </div>
     </div>
-
-    <!-- End Modal -->
+    
+    <!-- Modal de fin de jeu avec statistiques -->
     <div id="end-modal" class="modal">
         <div class="modal-content">
             <h2 id="end-message"></h2>
+            
+            <!-- Statistiques finales du jeu -->
             <div class="result-stats">
                 <div class="stat-item" id="final-wpm"></div>
                 <div class="stat-item" id="final-accuracy"></div>
                 <div class="stat-item" id="final-score"></div>
             </div>
-            
+           
+            <!-- Barre de progression pour le niveau -->
             <div class="progress-container">
                 <div class="progress-info">
                     <span>Progress</span>
@@ -78,7 +93,8 @@
                     <div class="progress-fill" id="progress-fill"></div>
                 </div>
             </div>
-            
+           
+            <!-- Barre de progression pour le score -->
             <div class="progress-container">
                 <div class="progress-info">
                     <span>Score</span>
@@ -88,7 +104,8 @@
                     <div class="progress-fill" id="score-fill"></div>
                 </div>
             </div>
-            
+           
+            <!-- Boutons d'action de fin de jeu -->
             <div class="modal-buttons">
                 <button id="continue-btn">Continue</button>
                 <button id="restart-btn">Restart</button>
@@ -96,7 +113,8 @@
             </div>
         </div>
     </div>
+    
+    <!-- Chargement du script JavaScript principal -->
     <script src="/assests/script.js"></script>
 </body>
-
 </html>

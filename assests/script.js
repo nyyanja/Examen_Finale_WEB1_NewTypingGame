@@ -40,7 +40,7 @@ const scoreFill = document.getElementById("score-fill");
 // Theme toggle
 const themeToggle = document.getElementById("theme-toggle");
 
-// Stockage des scores les plus élevés (à remplacer par un vrai stockage persistant)
+// Stockage des scores les plus élevés
 const highScores = {
     easy: { wpm: 40, score: 200 },
     medium: { wpm: 60, score: 300 },
