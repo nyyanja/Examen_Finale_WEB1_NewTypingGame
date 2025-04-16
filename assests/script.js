@@ -63,15 +63,15 @@ const centerCurrentWord = () => {
     if (currentWordIndex >= wordsToType.length) return;
     
     const container = document.querySelector('.book-page');
-    const currentWord = document.querySelector('.current'); // Sélectionner directement par classe
+    const currentWord = document.querySelector('.current');
     if (!currentWord || !container) return;
     
-    // Calcul de la position verticale au lieu de horizontale
+    // Calcul de la position verticale
     const containerHeight = container.offsetHeight;
     const wordTop = currentWord.offsetTop;
     const lineHeight = parseInt(window.getComputedStyle(currentWord).lineHeight);
     
-    // Centrer verticalement le mot courant dans la zone visible
+    // Centrer verticalement le mot courant
     const offset = wordTop - (containerHeight / 2) + (lineHeight / 2);
     
     // Appliquer une transformation de défilement vertical
@@ -90,8 +90,7 @@ const startTest = (wordCount = 50) => {
     correctWordsCount = 0;
     isGameActive = true;
 
-    // Créer un texte plus dense en multipliant le nombre de mots
-    // pour donner une sensation de paragraphe de livre
+    // Créer un texte comme un livre
     for (let i = 0; i < wordCount * 1.5; i++) {
         wordsToType.push(getRandomWord(modeSelect.value));
     }
@@ -206,12 +205,8 @@ const getDifficultyDescription = (difficulty) => {
 };
 
 const calculateProgress = () => {
-    // Nouvelle version: Le pourcentage est basé sur les mots correctement tapés
     if (wordsToType.length === 0) return 0;
-    
-    // Utiliser les caractères correctement tapés comme indicateur de progression
     const progressValue = (correctChars / Math.max(1, totalChars)) * 100;
-    
     // S'assurer que la valeur est entre 0 et 100
     return Math.min(Math.max(0, Math.round(progressValue)), 100);
 };
