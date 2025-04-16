@@ -90,44 +90,83 @@ body {
     color: white;
 }
 
-/* Zone d'affichage des mots */
-.word-display-container {
+/* Zone d'affichage des mots - NOUVEAU STYLE LIVRE */
+.book-display-container {
     position: relative;
-    border: 0px solid var(--primary-color);
-    border-radius: 15px;
-    padding: 20px;
-    height: 100px;
+    border-radius: 8px;
+    height: 180px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     overflow: hidden;
     background-color: var(--container-bg);
     box-shadow: var(--box-shadow);
+    margin-bottom: 20px;
 }
 
-#word-display {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 15px;
-    transition: transform 0.3s ease;
-    font-size: 24px;
-    white-space: nowrap;
+.book-page {
+    flex: 1;
+    padding: 25px 30px;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--container-bg);
+    border-left: 4px solid var(--primary-color);
 }
 
-#word-display span {
+.book-text {
+    font-family: 'Georgia', serif;
+    font-size: 20px;
+    line-height: 1.6;
+    text-align: justify;
+    position: relative;
+    transition: transform 0.5s ease;
+    padding-right: 15px;
+}
+
+.book-text span {
+    display: inline;
+    margin-right: 8px;
+    border-radius: 3px;
+    padding: 2px 0;
     transition: all 0.2s ease;
 }
 
-#word-display span.current {
+.book-text span.current {
     font-weight: bold;
     color: var(--primary-color);
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--primary-color);
 }
 
-#word-display span.correct {
+.book-text span.correct {
     color: var(--correct-color);
 }
 
-#word-display span.wrong {
+.book-text span.wrong {
     color: var(--wrong-color);
+}
+
+.book-decoration {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 15px;
+    display: flex;
+    overflow: hidden;
+}
+
+.book-edge {
+    width: 15px;
+    background: linear-gradient(to right, rgba(0,0,0,0.1), rgba(0,0,0,0.25));
+}
+
+.book-shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset -5px 0 10px rgba(0,0,0,0.2);
 }
 
 /* Champ de saisie */
@@ -175,8 +214,8 @@ body {
 
 /* Animations */
 .correct-word-animation {
-    transform: scale(1.1);
-    transition: transform 0.2s ease;
+    background-color: rgba(76, 175, 80, 0.15);
+    transition: background-color 0.5s ease;
 }
 
 /* Bouton de thème */
@@ -457,13 +496,16 @@ body {
         font-size: 16px;
     }
 
-    .word-display-container {
-        height: 80px;
-        padding: 15px;
+    .book-display-container {
+        height: 160px;
     }
-
-    #word-display {
-        font-size: 20px;
+    
+    .book-page {
+        padding: 20px 25px;
+    }
+    
+    .book-text {
+        font-size: 18px;
     }
 
     #input-field {
@@ -527,14 +569,16 @@ body {
         font-size: 14px;
     }
 
-    .word-display-container {
-        height: 70px;
-        padding: 10px;
+    .book-display-container {
+        height: 140px;
     }
-
-    #word-display {
-        font-size: 18px;
-        gap: 10px;
+    
+    .book-page {
+        padding: 15px 20px;
+    }
+    
+    .book-text {
+        font-size: 16px;
     }
 
     .stats-container {

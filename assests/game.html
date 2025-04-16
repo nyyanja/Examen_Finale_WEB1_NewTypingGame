@@ -7,6 +7,7 @@
     
     <!-- Liens vers les ressources externes et styles -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Georgia:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assests/game.html">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="/assests/game.css">
@@ -36,9 +37,15 @@
             <button class="difficulty-btn" data-difficulty="hard">HARD</button>
         </div>
         
-        <!-- Zone d'affichage des mots à taper -->
-        <div class="word-display-container">
-            <div id="word-display"></div>
+        <!-- Zone d'affichage des mots à taper (MODIFIÉE) -->
+        <div class="book-display-container">
+            <div class="book-page">
+                <div id="word-display" class="book-text"></div>
+            </div>
+            <div class="book-decoration">
+                <div class="book-edge"></div>
+                <div class="book-shadow"></div>
+            </div>
         </div>
         
         <!-- Champ de saisie pour l'utilisateur -->

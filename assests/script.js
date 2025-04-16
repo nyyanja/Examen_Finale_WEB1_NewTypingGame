@@ -14,6 +14,7 @@ const wordsToType = [];
 let isGameActive = false;
 let currentScore = 0;
 let statsIntervalId = null;
+let correctWordsCount = 0;
 
 const modeSelect = document.getElementById("mode");
 const wordDisplay = document.getElementById("word-display");
@@ -58,6 +59,25 @@ const getRandomWord = (mode) => {
     return wordList[Math.floor(Math.random() * wordList.length)];
 };
 
+const centerCurrentWord = () => {
+    if (currentWordIndex >= wordsToType.length) return;
+    
+    const container = document.querySelector('.book-page');
+    const currentWord = document.querySelector('.current'); // Sélectionner directement par classe
+    if (!currentWord || !container) return;
+    
+    // Calcul de la position verticale au lieu de horizontale
+    const containerHeight = container.offsetHeight;
+    const wordTop = currentWord.offsetTop;
+    const lineHeight = parseInt(window.getComputedStyle(currentWord).lineHeight);
+    
+    // Centrer verticalement le mot courant dans la zone visible
+    const offset = wordTop - (containerHeight / 2) + (lineHeight / 2);
+    
+    // Appliquer une transformation de défilement vertical
+    wordDisplay.style.transform = `translateY(-${Math.max(0, offset)}px)`;
+};
+
 const startTest = (wordCount = 50) => {
     wordsToType.length = 0;
     wordDisplay.innerHTML = "";
@@ -67,19 +87,44 @@ const startTest = (wordCount = 50) => {
     totalChars = 0;
     correctChars = 0;
     currentScore = 0;
+    correctWordsCount = 0;
     isGameActive = true;
 
-    for (let i = 0; i < wordCount; i++) {
+    // Créer un texte plus dense en multipliant le nombre de mots
+    // pour donner une sensation de paragraphe de livre
+    for (let i = 0; i < wordCount * 1.5; i++) {
         wordsToType.push(getRandomWord(modeSelect.value));
     }
 
+    // Ajouter des ponctuations aléatoires pour imiter un texte de livre
+    const punctuations = [',', '.', '', '', '', '', '', ''];
+    
+    const paragraph = document.createElement("p");
+    paragraph.className = "book-paragraph";
+    
     wordsToType.forEach((word, index) => {
+        // Ajouter une ponctuation aléatoire tous les 5-8 mots
+        let displayWord = word;
+        if (index % Math.floor(Math.random() * 4 + 5) === 0) {
+            const punct = punctuations[Math.floor(Math.random() * punctuations.length)];
+            displayWord = word + punct;
+        }
+        
         const span = document.createElement("span");
-        span.textContent = word;
-        span.dataset.word = word;
+        span.textContent = displayWord;
+        span.dataset.word = displayWord;
+        
         if (index === 0) span.classList.add('current');
-        wordDisplay.appendChild(span);
+        
+        paragraph.appendChild(span);
+        
+        // Ajouter un espace entre les mots 
+        if (index < wordsToType.length - 1) {
+            paragraph.appendChild(document.createTextNode(" "));
+        }
     });
+    
+    wordDisplay.appendChild(paragraph);
 
     inputField.value = "";
     inputField.disabled = false;
@@ -161,9 +206,14 @@ const getDifficultyDescription = (difficulty) => {
 };
 
 const calculateProgress = () => {
-    // Pourcentage d'achèvement par rapport au nombre total de mots
-    if (currentWordIndex === 0) return 0;
-    return Math.min(Math.round((currentWordIndex / wordsToType.length) * 100), 100);
+    // Nouvelle version: Le pourcentage est basé sur les mots correctement tapés
+    if (wordsToType.length === 0) return 0;
+    
+    // Utiliser les caractères correctement tapés comme indicateur de progression
+    const progressValue = (correctChars / Math.max(1, totalChars)) * 100;
+    
+    // S'assurer que la valeur est entre 0 et 100
+    return Math.min(Math.max(0, Math.round(progressValue)), 100);
 };
 
 const calculateScorePercentage = (score, difficulty) => {
@@ -196,26 +246,16 @@ const stopStatsInterval = () => {
     }
 };
 
-const centerCurrentWord = () => {
-    if (currentWordIndex >= wordsToType.length) return;
-    
-    const container = document.querySelector('.word-display-container');
-    const currentWord = wordDisplay.children[currentWordIndex];
-    if (!currentWord) return;
-    
-    const containerWidth = container.offsetWidth;
-    
-    const offset = currentWord.offsetLeft - (containerWidth / 2) + (currentWord.offsetWidth / 2);
-    
-    wordDisplay.style.transform = `translateX(-${Math.max(0, offset)}px)`;
-};
-
+// Modifier la fonction checkTyping pour sélectionner correctement le mot courant
 const checkTyping = () => {
     if (currentWordIndex >= wordsToType.length || !isGameActive) return;
     
     const typedWord = inputField.value.trim();
     const correctWord = wordsToType[currentWordIndex];
-    const wordElement = wordDisplay.children[currentWordIndex];
+    
+    // Sélectionner le mot actuel par sa classe plutôt que par son index
+    const wordElement = document.querySelector('.current');
+    if (!wordElement) return;
     
     let isCorrectSoFar = true;
     for (let i = 0; i < typedWord.length; i++) {
@@ -234,6 +274,7 @@ const checkTyping = () => {
     }
 };
 
+// Ajuster la fonction handleTyping pour le nouveau format
 const handleTyping = (event) => {
     if (!isGameActive) return;
     
@@ -242,7 +283,10 @@ const handleTyping = (event) => {
 
         const typedWord = inputField.value.trim();
         const correctWord = wordsToType[currentWordIndex];
-        const wordElement = wordDisplay.children[currentWordIndex];
+        
+        // Sélectionner par classe
+        const wordElement = document.querySelector('.current');
+        if (!wordElement) return;
 
         totalChars += typedWord.length;
         
@@ -255,14 +299,19 @@ const handleTyping = (event) => {
         if (typedWord === correctWord) {
             wordElement.className = 'correct';
             animateCorrectWord(wordElement);
+            correctWordsCount++;
         } else {
             wordElement.className = 'wrong';
         }
 
         currentWordIndex++;
         if (currentWordIndex < wordsToType.length) {
-            wordDisplay.children[currentWordIndex].classList.add('current');
-            centerCurrentWord();
+            // Trouver le prochain mot directement dans les enfants du paragraphe
+            const paragraph = document.querySelector('.book-paragraph');
+            if (paragraph && paragraph.children[currentWordIndex]) {
+                paragraph.children[currentWordIndex].classList.add('current');
+                centerCurrentWord();
+            }
         }
 
         const stats = getCurrentStats();
@@ -480,7 +529,7 @@ const handleLogout = () => {
             
             // Rediriger vers la page d'accueil après l'animation
             setTimeout(() => {
-                window.location.href = '/index.html'; // Ajustez selon votre structure de fichiers
+                window.location.href = '/index.html';
             }, 500);
         });
     };
